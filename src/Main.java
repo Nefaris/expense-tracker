@@ -1,28 +1,29 @@
+import utils.UserInput;
 import wallet.Wallet;
-import wallet.enums.WalletOperation;
-import wallet.models.MoneyOperation;
-
-import java.util.Scanner;
+import wallet.enums.WalletAction;
 
 public class Main {
-    private final static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
         final Wallet wallet = new Wallet(1000, "zł");
         while (true) {
             wallet.displayWalletInfo();
-            wallet.displayControls();
-            WalletOperation value = WalletOperation.values()[scanner.nextInt() - 1];
-            System.out.println(value);
+            wallet.displayHistoryOperations(5);
+            wallet.displayWalletActions();
 
+            WalletAction selectedAction = WalletAction.values()[UserInput.getScanner().nextInt() - 1];
+            switch (selectedAction) {
+                case ADD_SINGLE_EXPENSE: {
+                    wallet.createSingleExpense();
+                    break;
+                }
+
+                case ADD_SINGLE_INCOME: {
+                    wallet.createSingleIncome();
+                    break;
+                }
+            }
 
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         }
-
-//        wallet.addOperation(new MoneyOperation(100));
-//        wallet.addOperation(new MoneyOperation(-200, "Fuel"));
-//        wallet.addOperation(new MoneyOperation(200, "Food and water"));
-//        wallet.displayHistoryOperations(5);
-//        wallet.displayControls();
     }
 }

@@ -1,8 +1,8 @@
 package wallet.enums;
 
-public enum WalletOperation {
-    ADD_EXPENSE,
-    ADD_INCOME,
+public enum WalletAction {
+    ADD_SINGLE_EXPENSE,
+    ADD_SINGLE_INCOME,
     SHOW_HISTORY,
     SHOW_EXPENSES,
     SHOW_INCOMES,

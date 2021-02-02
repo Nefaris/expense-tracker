@@ -1,7 +1,5 @@
 package wallet.models;
 
-import wallet.enums.WalletOperation;
-
 import java.time.LocalDateTime;
 
 public class MoneyOperation {

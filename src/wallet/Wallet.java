@@ -1,5 +1,6 @@
 package wallet;
 
+import utils.UserInput;
 import wallet.models.MoneyOperation;
 
 import java.time.format.DateTimeFormatter;
@@ -18,9 +19,28 @@ public class Wallet {
         this.dateFormat = "dd.MM.yyyy HH:mm:ss";
     }
 
-    public void addOperation(MoneyOperation moneyOperation) {
-        this.operations.add(moneyOperation);
-        this.balance += moneyOperation.getValue();
+    public void createSingleExpense() {
+        System.out.println("\n===== Add new expense =====");
+        System.out.print("Expense value: ");
+        double expenseValue = UserInput.getScanner().nextDouble();
+        UserInput.getScanner().nextLine();
+
+        System.out.print("Description (leave empty to skip): ");
+        String description = UserInput.getScanner().nextLine();
+
+        this.addOperation(new MoneyOperation(-expenseValue, description));
+    }
+
+    public void createSingleIncome() {
+        System.out.println("\n===== Add new income =====");
+        System.out.print("Income value: ");
+        double expenseValue = UserInput.getScanner().nextDouble();
+        UserInput.getScanner().nextLine();
+
+        System.out.print("Description (leave empty to skip): ");
+        String description = UserInput.getScanner().nextLine();
+
+        this.addOperation(new MoneyOperation(expenseValue, description));
     }
 
     public double getExpensesValue() {
@@ -54,13 +74,11 @@ public class Wallet {
     }
 
     public void displayHistoryOperations(int count) {
-        this.displayWalletInfo();
-
-        System.out.println("===== Your last expenses =======");
+        System.out.println("===== Your last operations =====");
 
         if (this.operations.size() > 0) {
             for (int i = 0; i < Math.min(count, this.operations.size()); i++) {
-                this.displayOperation(operations.get(i), i + 1);
+                this.displayMoneyOperation(operations.get(i), i + 1);
             }
         } else {
             System.out.println("No operations");
@@ -69,7 +87,7 @@ public class Wallet {
         System.out.println("================================\n");
     }
 
-    public void displayOperation(MoneyOperation operation, int order) {
+    public void displayMoneyOperation(MoneyOperation operation, int order) {
         System.out.printf("%d. %s%.02f%s %s %s\n",
                 order,
                 operation.getValue() > 0 ? "+" : "",
@@ -80,7 +98,7 @@ public class Wallet {
         );
     }
 
-    public void displayControls() {
+    public void displayWalletActions() {
         System.out.println("===== Wallet operations ========");
         System.out.println("1. Add expense");
         System.out.println("2. Add income");
@@ -89,6 +107,11 @@ public class Wallet {
         System.out.println("5. Show incomes");
         System.out.println("6. Exit");
         System.out.print("\nChoice: ");
+    }
+
+    private void addOperation(MoneyOperation moneyOperation) {
+        this.operations.add(moneyOperation);
+        this.balance += moneyOperation.getValue();
     }
 
     @Override
