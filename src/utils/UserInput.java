@@ -8,4 +8,11 @@ public class UserInput {
     public static Scanner getScanner() {
         return scanner;
     }
+
+    public static void waitForEnter() {
+        try {
+            System.in.read();
+        } catch (Exception ignored) {
+        }
+    }
 }

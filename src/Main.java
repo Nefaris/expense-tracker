@@ -7,7 +7,7 @@ public class Main {
         final Wallet wallet = new Wallet(1000, "zł");
         while (true) {
             wallet.displayWalletInfo();
-            wallet.displayHistoryOperations(5);
+            wallet.displayNewestOperations(5);
             wallet.displayWalletActions();
 
             WalletAction selectedAction = WalletAction.values()[UserInput.getScanner().nextInt() - 1];
@@ -19,6 +19,11 @@ public class Main {
 
                 case ADD_SINGLE_INCOME: {
                     wallet.createSingleIncome();
+                    break;
+                }
+
+                case SHOW_OPERATIONS_HISTORY: {
+                    wallet.showFullHistory();
                     break;
                 }
             }

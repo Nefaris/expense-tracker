@@ -65,6 +65,18 @@ public class Wallet {
         return value;
     }
 
+    public void showFullHistory() {
+        System.out.println("\n===== Operations history =====");
+        if (this.operations.size() > 0) {
+            this.displayHistoryOperations(this.operations.size());
+        } else {
+            System.out.println("Operations history is empty");
+        }
+        System.out.println("==============================\n");
+        System.out.println("Press enter to go back...");
+        UserInput.waitForEnter();
+    }
+
     public void displayWalletInfo() {
         System.out.println("===== Your wallet =====");
         System.out.printf("Balance: %.02f%s\n", this.balance, this.currency);
@@ -73,18 +85,20 @@ public class Wallet {
         System.out.println("=======================\n");
     }
 
-    public void displayHistoryOperations(int count) {
+    public void displayNewestOperations(int count) {
         System.out.println("===== Your last operations =====");
-
         if (this.operations.size() > 0) {
-            for (int i = 0; i < Math.min(count, this.operations.size()); i++) {
-                this.displayMoneyOperation(operations.get(i), i + 1);
-            }
+            this.displayHistoryOperations(count);
         } else {
             System.out.println("No operations");
         }
-
         System.out.println("================================\n");
+    }
+
+    public void displayHistoryOperations(int count) {
+        for (int i = 0; i < Math.min(count, this.operations.size()); i++) {
+            this.displayMoneyOperation(operations.get(i), i + 1);
+        }
     }
 
     public void displayMoneyOperation(MoneyOperation operation, int order) {
