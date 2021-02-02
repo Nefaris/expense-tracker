@@ -69,23 +69,6 @@ public class Wallet {
         System.out.println("================================\n");
     }
 
-    public void displayOperations() {
-        this.displayWalletInfo();
-
-        System.out.println("===== Your expenses ========");
-
-        if (this.operations.size() > 0) {
-            int i = 0;
-            for (MoneyOperation operation : this.operations) {
-                this.displayOperation(operation, ++i);
-            }
-        } else {
-            System.out.println("No expenses");
-        }
-
-        System.out.println("=========================\n");
-    }
-
     public void displayOperation(MoneyOperation operation, int order) {
         System.out.printf("%d. %s%.02f%s %s %s\n",
                 order,
@@ -104,6 +87,7 @@ public class Wallet {
         System.out.println("3. Show history");
         System.out.println("4. Show expenses");
         System.out.println("5. Show incomes");
+        System.out.println("6. Exit");
         System.out.print("\nChoice: ");
     }
 

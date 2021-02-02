@@ -5,5 +5,6 @@ public enum WalletOperation {
     ADD_INCOME,
     SHOW_HISTORY,
     SHOW_EXPENSES,
-    SHOW_INCOMES
+    SHOW_INCOMES,
+    EXIT
 }
