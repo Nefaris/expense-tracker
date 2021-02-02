@@ -144,25 +144,11 @@ public class Wallet {
     }
 
     private double getExpensesValue() {
-        double value = 0;
-        for (MoneyOperation operation : this.operations) {
-            if (operation.getValue() < 0) {
-                value -= operation.getValue();
-            }
-        }
-
-        return value;
+        return this.operations.stream().filter(this::isExpense).mapToDouble(MoneyOperation::getValue).sum();
     }
 
     private double getIncomesValue() {
-        double value = 0;
-        for (MoneyOperation operation : this.operations) {
-            if (operation.getValue() > 0) {
-                value += operation.getValue();
-            }
-        }
-
-        return value;
+        return this.operations.stream().filter(this::isIncome).mapToDouble(MoneyOperation::getValue).sum();
     }
 
     @Override
