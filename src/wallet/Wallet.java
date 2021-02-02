@@ -52,7 +52,8 @@ public class Wallet {
         } else {
             System.out.println("You have no expenses, lucky you ;)");
         }
-        System.out.println("\n=============================");
+        System.out.println("===============================");
+        System.out.println("Press enter to go back...");
         UserInput.waitForEnter();
     }
 
@@ -63,7 +64,8 @@ public class Wallet {
         } else {
             System.out.println("You have no incomes :(");
         }
-        System.out.println("\n=============================");
+        System.out.println("===============================");
+        System.out.println("Press enter to go back...");
         UserInput.waitForEnter();
     }
 

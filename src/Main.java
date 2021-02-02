@@ -5,7 +5,8 @@ import wallet.enums.WalletAction;
 public class Main {
     public static void main(String[] args) {
         final Wallet wallet = new Wallet(1000, "zł");
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             wallet.displayWalletInfo();
             wallet.displayNewestOperations(5);
             wallet.displayWalletActions();
@@ -37,6 +38,11 @@ public class Main {
                     break;
                 }
 
+                case EXIT: {
+                    isRunning = false;
+                    break;
+                }
+
                 default: {
                     System.out.println("No such option");
                 }
@@ -44,5 +50,7 @@ public class Main {
 
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         }
+
+        System.out.println("Bye!");
     }
 }
