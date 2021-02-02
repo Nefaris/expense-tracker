@@ -5,6 +5,8 @@ import wallet.models.MoneyOperation;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Wallet {
     private final ArrayList<MoneyOperation> operations;
@@ -43,29 +45,29 @@ public class Wallet {
         this.addOperation(new MoneyOperation(expenseValue, description));
     }
 
-    public double getExpensesValue() {
-        double value = 0;
-        for (MoneyOperation operation : this.operations) {
-            if (operation.getValue() < 0) {
-                value -= operation.getValue();
-            }
+    public void displayAllExpenses() {
+        System.out.println("\n===== All your expenses =====");
+        if (operations.size() > 0) {
+            this.displayOperations(this.operations.stream().filter(this::isExpense).collect(Collectors.toList()));
+        } else {
+            System.out.println("You have no expenses, lucky you ;)");
         }
-
-        return value;
+        System.out.println("\n=============================");
+        UserInput.waitForEnter();
     }
 
-    public double getIncomesValue() {
-        double value = 0;
-        for (MoneyOperation operation : this.operations) {
-            if (operation.getValue() > 0) {
-                value += operation.getValue();
-            }
+    public void displayAllIncomes() {
+        System.out.println("\n===== All your incomes =====");
+        if (operations.size() > 0) {
+            this.displayOperations(this.operations.stream().filter(this::isIncome).collect(Collectors.toList()));
+        } else {
+            System.out.println("You have no incomes :(");
         }
-
-        return value;
+        System.out.println("\n=============================");
+        UserInput.waitForEnter();
     }
 
-    public void showFullHistory() {
+    public void displayFullHistory() {
         System.out.println("\n===== Operations history =====");
         if (this.operations.size() > 0) {
             this.displayHistoryOperations(this.operations.size());
@@ -96,9 +98,7 @@ public class Wallet {
     }
 
     public void displayHistoryOperations(int count) {
-        for (int i = 0; i < Math.min(count, this.operations.size()); i++) {
-            this.displayMoneyOperation(operations.get(i), i + 1);
-        }
+        this.displayOperations(this.operations.subList(0, Math.min(count, this.operations.size())));
     }
 
     public void displayMoneyOperation(MoneyOperation operation, int order) {
@@ -123,9 +123,46 @@ public class Wallet {
         System.out.print("\nChoice: ");
     }
 
+    private void displayOperations(List<MoneyOperation> operations) {
+        int i = 0;
+        for (MoneyOperation operation : operations) {
+            this.displayMoneyOperation(operation, ++i);
+        }
+    }
+
     private void addOperation(MoneyOperation moneyOperation) {
         this.operations.add(moneyOperation);
         this.balance += moneyOperation.getValue();
+    }
+
+    private boolean isIncome(MoneyOperation operation) {
+        return operation.getValue() > 0;
+    }
+
+    private boolean isExpense(MoneyOperation operation) {
+        return operation.getValue() < 0;
+    }
+
+    private double getExpensesValue() {
+        double value = 0;
+        for (MoneyOperation operation : this.operations) {
+            if (operation.getValue() < 0) {
+                value -= operation.getValue();
+            }
+        }
+
+        return value;
+    }
+
+    private double getIncomesValue() {
+        double value = 0;
+        for (MoneyOperation operation : this.operations) {
+            if (operation.getValue() > 0) {
+                value += operation.getValue();
+            }
+        }
+
+        return value;
     }
 
     @Override

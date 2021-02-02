@@ -23,8 +23,22 @@ public class Main {
                 }
 
                 case SHOW_OPERATIONS_HISTORY: {
-                    wallet.showFullHistory();
+                    wallet.displayFullHistory();
                     break;
+                }
+
+                case SHOW_EXPENSES: {
+                    wallet.displayAllExpenses();
+                    break;
+                }
+
+                case SHOW_INCOMES: {
+                    wallet.displayAllIncomes();
+                    break;
+                }
+
+                default: {
+                    System.out.println("No such option");
                 }
             }
 
